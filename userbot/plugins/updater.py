@@ -92,6 +92,7 @@ async def updater(message):
     else:
         await message.edit("No heroku api key found in `HEROKU_API_KEY` var")
 
+
 # fmt: off
 async def deploy_start(tgbot, message, refspec, remote):
     await message.edit(RESTARTING_APP)
