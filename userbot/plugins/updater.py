@@ -85,16 +85,16 @@ async def updater(message):
     temp_upstream_remote.fetch(active_branch_name)
     repo.git.reset("--hard", "FETCH_HEAD")
 
-    if Var.HEROKU_API_KEY is not None:
+    if Config.HEROKU_API_KEY is not None:
         import heroku3
 
-        heroku = heroku3.from_key(Var.HEROKU_API_KEY)
+        heroku = heroku3.from_key(Config.HEROKU_API_KEY)
         heroku_applications = heroku.apps()
         if len(heroku_applications) >= 1:
-            if Var.HEROKU_APP_NAME is not None:
+            if Config.HEROKU_APP_NAME is not None:
                 heroku_app = None
                 for i in heroku_applications:
-                    if i.name == Var.HEROKU_APP_NAME:
+                    if i.name == Config.HEROKU_APP_NAME:
                         heroku_app = i
                 if heroku_app is None:
                     await message.edit(
@@ -102,7 +102,7 @@ async def updater(message):
                     )
                     return
                 heroku_git_url = heroku_app.git_url.replace(
-                    "https://", "https://api:" + Var.HEROKU_API_KEY + "@"
+                    "https://", "https://api:" + Config.HEROKU_API_KEY + "@"
                 )
                 if "heroku" in repo.remotes:
                     remote = repo.remote("heroku")
