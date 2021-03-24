@@ -92,12 +92,13 @@ async def updater(message):
     else:
         await message.edit("No heroku api key found in `HEROKU_API_KEY` var")
 
-
+# fmt: off
 async def deploy_start(tgbot, message, refspec, remote):
     await message.edit(RESTARTING_APP)
     await message.edit(
         "Updating and Deploying the code. Please wait for 5 minutes then use `.alive` to check wheather I am online or not."
     )
-    await remote.push(refspec="HEAD:refs/heads/master", force=True)  # noqa
+    await  remote.push(refspec="HEAD:refs/heads/master", force=True)  # noqa
     await tgbot.disconnect()
     os.execl(sys.executable, sys.executable, *sys.argv)
+# fmt: on
